@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Ecommerce Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f4f4;
+            text-align: center;
+        }
+        header {
+            background: #4b267b;
+            color: white;
+            padding: 20px;
+        }
+        .login-box {
+            background: white;
+            padding: 25px;
+            margin: 40px auto;
+            max-width: 320px;
+            border-radius: 10px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 8px;
+        }
+        button {
+            background: #4b267b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #products {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+        .product {
+            background: white;
+            padding: 20px;
+            width: 180px;
+            border-radius: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mini Ecommerce Store</h1>
+    </header>
+
+    <section id="loginSection" class="login-box">
+        <h2>Login</h2>
+        <input id="username" type="text" placeholder="Username"><br>
+        <input id="password" type="password" placeholder="Password"><br>
+        <button onclick="login()">Login</button>
+        <p id="message"></p>
+    </section>
+
+    <section id="productSection" class="hidden">
+        <h2>Our Products</h2>
+        <div id="products"></div>
+    </section>
+
+    <script>
+        const items = [
+            { name: "Headphones", price: 999, emoji: "🎧" },
+            { name: "Smart Watch", price: 1499, emoji: "⌚" },
+            { name: "Shoes", price: 1999, emoji: "👟" }
+        ];
+
+        function login() {
+            const user = document.getElementById("username").value;
+            const pass = document.getElementById("password").value;
+            const message = document.getElementById("message");
+
+            if (user === "admin" && pass === "1234") {
+                document.getElementById("loginSection").classList.add("hidden");
+                document.getElementById("productSection").classList.remove("hidden");
+
+                const container = document.getElementById("products");
+                container.innerHTML = "";
+
+                items.forEach(item => {
+                    const card = document.createElement("div");
+                    card.className = "product";
+
+                    card.innerHTML = `
+                        <h2>${item.emoji}</h2>
+                        <h3>${item.name}</h3>
+                        <p>Price: ₹${item.price}</p>
+                        <button>Add to Cart</button>
+                    `;
+
+                    container.appendChild(card);
+                });
+            } else {
+                message.textContent = "Invalid username or password!";
+                message.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>
